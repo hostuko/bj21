@@ -1752,12 +1752,14 @@ Que dois-je faire ?`;
 
   try {
     const raw = await callGemini(prompt, sysPrompt);
-    const clean = raw.replace(/```json|```/g, '').trim();
-    const parsed = JSON.parse(clean);
+    // Extract JSON object robustly — find first { ... } block
+    const match = raw.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('Réponse inattendue de Gemini');
+    const parsed = JSON.parse(match[0]);
     displayDecision(parsed.action, parsed.reason + (parsed.tip ? ' ' + parsed.tip : ''), parsed.confidence, true);
     apiStatus.textContent = '⬤ Gemini OK';
     apiStatus.className = 'ok';
-    addChatMessage('ai', `✦ Analyse Gemini: **${parsed.action}** — ${parsed.reason}`);
+    addChatMessage('ai', `✦ Analyse Gemini: ${parsed.action} — ${parsed.reason}`);
   } catch (e) {
     console.error(e);
     displayDecision(basicRes.action, basicRes.reason + ' (Basic strategy)', basicRes.confidence, false);
