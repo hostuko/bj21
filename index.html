@@ -715,6 +715,187 @@
     }
     .btn-reset-all:hover { border-color: var(--gold-dim); color: var(--gold-dim); }
 
+    /* ─── Lock Screen ─── */
+    #lockscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: var(--felt-dark);
+      background-image:
+        radial-gradient(ellipse 70% 60% at 50% 30%, rgba(201,168,76,0.09) 0%, transparent 65%),
+        repeating-linear-gradient(
+          45deg, transparent, transparent 20px,
+          rgba(255,255,255,0.008) 20px, rgba(255,255,255,0.008) 21px
+        );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    #lockscreen.unlocking {
+      opacity: 0;
+      transform: scale(1.04);
+      pointer-events: none;
+    }
+
+    .lock-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .lock-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-dim);
+      letter-spacing: 0.2em;
+      margin-top: 0.4rem;
+      text-align: center;
+    }
+
+    /* Ornament divider */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 480px;
+      margin: 2rem 0 1.8rem;
+      color: var(--gold-dim);
+      font-size: 1.1rem;
+    }
+    .ornament::before, .ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    /* Rules card */
+    .rules-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.6rem 2rem;
+      max-width: 480px;
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+    .rules-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .rules-title::after { content: ''; flex:1; height:1px; background: linear-gradient(90deg, var(--border), transparent); }
+    .rule-item {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: var(--text-dim);
+    }
+    .rule-item:last-child { margin-bottom: 0; }
+    .rule-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    .rule-item strong { color: var(--text); font-weight: 500; }
+
+    /* Key input box */
+    .lock-form {
+      max-width: 480px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .lock-label {
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .lock-input-row {
+      display: flex;
+      gap: 0.6rem;
+    }
+    .lock-input {
+      flex: 1;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      transition: border-color 0.2s;
+    }
+    .lock-input:focus { outline: none; border-color: var(--gold); }
+    .lock-input.shake {
+      animation: shake 0.4s ease;
+      border-color: #e05252 !important;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-5px); }
+      80%      { transform: translateX(5px); }
+    }
+    .lock-btn {
+      padding: 0.7rem 1.5rem;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+      border: none;
+      color: var(--felt-dark);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: filter 0.2s, transform 0.15s;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .lock-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .lock-error {
+      font-size: 0.72rem;
+      color: #e05252;
+      letter-spacing: 0.05em;
+      min-height: 1em;
+      transition: opacity 0.2s;
+    }
+    .lock-footer {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      opacity: 0.5;
+      margin-top: 1.5rem;
+      text-align: center;
+      letter-spacing: 0.1em;
+    }
+
+    /* Hide app initially */
+    #app { display: none; }
+
     /* Scrollbar */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -723,7 +904,77 @@
 </head>
 <body>
 
-<header>
+<!-- ═══════════════════════════════════════════════════
+     LOCK SCREEN
+════════════════════════════════════════════════════ -->
+<div id="lockscreen">
+  <div class="lock-logo">♠ BlackJack AI ♠</div>
+  <div class="lock-subtitle">Assistant de table intelligent</div>
+
+  <div class="ornament">♦</div>
+
+  <!-- Rules card -->
+  <div class="rules-card">
+    <div class="rules-title">Rappel des règles</div>
+
+    <div class="rule-item">
+      <span class="rule-icon">🎯</span>
+      <span><strong>Objectif :</strong> S'approcher de 21 sans le dépasser, et battre le croupier.</span>
+    </div>
+    <div class="rule-item">
+      <span class="rule-icon">🃏</span>
+      <span><strong>Valeurs :</strong> Les figures (J, Q, K) valent 10. L'As vaut 1 ou 11. Les autres cartes valent leur chiffre.</span>
+    </div>
+    <div class="rule-item">
+      <span class="rule-icon">🤲</span>
+      <span><strong>Tirer (Hit) :</strong> Demander une carte supplémentaire.</span>
+    </div>
+    <div class="rule-item">
+      <span class="rule-icon">✋</span>
+      <span><strong>Rester (Stand) :</strong> Garder sa main actuelle et passer la main au croupier.</span>
+    </div>
+    <div class="rule-item">
+      <span class="rule-icon">✌️</span>
+      <span><strong>Doubler (Double Down) :</strong> Doubler la mise, recevoir exactement une carte de plus.</span>
+    </div>
+    <div class="rule-item">
+      <span class="rule-icon">↔️</span>
+      <span><strong>Séparer (Split) :</strong> Si vous avez deux cartes identiques, les séparer en deux mains distinctes.</span>
+    </div>
+    <div class="rule-item">
+      <span class="rule-icon">🏆</span>
+      <span><strong>Blackjack :</strong> As + carte à 10 en deux cartes = Blackjack, payé 3:2.</span>
+    </div>
+    <div class="rule-item">
+      <span class="rule-icon">🎰</span>
+      <span><strong>Croupier :</strong> Tire jusqu'à 17 minimum. Il doit s'arrêter à 17 ou plus.</span>
+    </div>
+  </div>
+
+  <!-- Key form -->
+  <div class="lock-form">
+    <div class="lock-label">🔐 Mot de passe d'accès</div>
+    <div class="lock-input-row">
+      <input
+        type="password"
+        class="lock-input"
+        id="lock-key-input"
+        placeholder="••••••••"
+        onkeydown="if(event.key==='Enter') attemptUnlock()"
+        autocomplete="off"
+      />
+      <button class="lock-btn" onclick="attemptUnlock()">Accéder →</button>
+    </div>
+    <div class="lock-error" id="lock-error"></div>
+  </div>
+
+  <div class="lock-footer">Accès réservé aux joueurs de la table</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     APP (hidden until unlocked)
+════════════════════════════════════════════════════ -->
+<div id="app">
   <div class="logo">♠ BlackJack AI ♠</div>
   <div class="subtitle">Assistant de table en temps réel</div>
   <div class="deck-badge" id="header-badge">2 PAQUETS · 104 CARTES · BASIC STRATEGY + COMPTAGE</div>
@@ -751,11 +1002,12 @@
   <div class="config-info">Total : <span id="total-cards-info">104</span> cartes</div>
 </div>
 
-<!-- API Key -->
-<div id="api-banner">
-  <label>GEMINI API KEY :</label>
-  <input type="password" id="api-key-input" placeholder="AIzaSy..." />
-  <span id="api-status">⬤ En attente</span>
+<!-- API Key (inside app) -->
+<div id="api-banner" style="padding:0.55rem 1.5rem;display:flex;align-items:center;gap:0.8rem;border-bottom:1px solid var(--border);background:linear-gradient(90deg,transparent,rgba(201,168,76,0.06),transparent);flex-wrap:wrap">
+  <label style="font-size:0.68rem;color:var(--text-dim);letter-spacing:0.1em;white-space:nowrap">🔑 CLÉ GEMINI :</label>
+  <input type="password" id="api-key-input" placeholder="AIzaSy..." style="flex:1;min-width:180px;background:rgba(0,0,0,0.4);border:1px solid var(--border);color:var(--text);padding:0.35rem 0.7rem;border-radius:4px;font-family:'DM Mono',monospace;font-size:0.75rem;letter-spacing:0.05em" />
+  <span id="api-status" style="font-size:0.7rem;color:var(--text-dim)">⬤ En attente</span>
+  <button onclick="logout()" style="margin-left:auto;background:transparent;border:1px solid rgba(224,82,82,0.3);color:#e05252;font-family:'DM Mono',monospace;font-size:0.68rem;padding:0.25rem 0.7rem;border-radius:4px;cursor:pointer;letter-spacing:0.08em;transition:all 0.2s" onmouseover="this.style.background='rgba(224,82,82,0.1)'" onmouseout="this.style.background='transparent'">⏻ Quitter</button>
 </div>
 
 <div class="main">
@@ -868,6 +1120,8 @@
 
   </div>
 </div>
+
+</div><!-- end #app -->
 
 <!-- Card Picker -->
 <div class="picker-overlay" id="picker-overlay" onclick="closePicker(event)">
@@ -1007,19 +1261,59 @@ function fullReset() {
   showToast('Table réinitialisée !');
 }
 
-// ─── API KEY ─────────────────────────────────────────────────────────
+// ─── LOCK SCREEN ─────────────────────────────────────────────────────
+const PASSWORD = '123BJ21';
+let _apiKey = '';
+
+function getApiKey() { return _apiKey; }
+
+function attemptUnlock() {
+  const input  = document.getElementById('lock-key-input');
+  const errEl  = document.getElementById('lock-error');
+  const pwd    = input.value;
+
+  if (!pwd) {
+    errEl.textContent = 'Entre le mot de passe.';
+    input.classList.add('shake');
+    setTimeout(() => input.classList.remove('shake'), 500);
+    return;
+  }
+  if (pwd !== PASSWORD) {
+    errEl.textContent = 'Mot de passe incorrect.';
+    input.value = '';
+    input.classList.add('shake');
+    setTimeout(() => input.classList.remove('shake'), 500);
+    return;
+  }
+
+  // Correct password — unlock
+  const ls = document.getElementById('lockscreen');
+  ls.classList.add('unlocking');
+  setTimeout(() => {
+    ls.style.display = 'none';
+    const app = document.getElementById('app');
+    app.style.display = 'block';
+    renderPlayerTabs();
+    renderHands();
+    updateStats();
+  }, 480);
+}
+
+// ─── API KEY (inside app) ─────────────────────────────────────────────
 const apiKeyInput = document.getElementById('api-key-input');
 const apiStatus   = document.getElementById('api-status');
 
-// Try to restore from session
+// Restore from session
 if (sessionStorage.getItem('gemini_key')) {
-  apiKeyInput.value = sessionStorage.getItem('gemini_key');
+  _apiKey = sessionStorage.getItem('gemini_key');
+  apiKeyInput.value = _apiKey;
   apiStatus.textContent = '⬤ Clé chargée';
   apiStatus.className = 'ok';
 }
 
 apiKeyInput.addEventListener('input', () => {
   const k = apiKeyInput.value.trim();
+  _apiKey = k;
   sessionStorage.setItem('gemini_key', k);
   if (k.startsWith('AIza') && k.length > 20) {
     apiStatus.textContent = '⬤ Clé valide';
@@ -1032,10 +1326,6 @@ apiKeyInput.addEventListener('input', () => {
     apiStatus.className = '';
   }
 });
-
-function getApiKey() {
-  return apiKeyInput.value.trim();
-}
 
 // ─── CARD UTILS ──────────────────────────────────────────────────────
 function cardValue(val) {
@@ -1530,11 +1820,21 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2800);
 }
 
+// ─── LOGOUT ──────────────────────────────────────────────────────────
+function logout() {
+  document.getElementById('app').style.display = 'none';
+  const ls = document.getElementById('lockscreen');
+  ls.style.display = 'flex';
+  ls.classList.remove('unlocking');
+  ls.style.opacity = '1';
+  ls.style.transform = 'none';
+  document.getElementById('lock-key-input').value = '';
+  document.getElementById('lock-error').textContent = '';
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────
 document.querySelector('.suit-btn[data-suit="♠"]').classList.add('selected');
-renderPlayerTabs();
-renderHands();
-updateStats();
+// App renders happen after unlock — no render here
 </script>
 </body>
 </html>
